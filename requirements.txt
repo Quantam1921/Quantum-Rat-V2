@@ -1,0 +1,11 @@
+discord
+opencv_python
+Pillow
+psutil
+pyautogui
+pycryptodomex
+pynput
+pyttsx3
+pywin32
+Requests
+pyinstaller
