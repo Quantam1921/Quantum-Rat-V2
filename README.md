@@ -50,43 +50,43 @@ Once deployed and running, the Quantum Rat v2 agent connects to the specified Di
 
 ** Commands:**
 
-R4T V2 Commands:
+# R4T V2 Commands:
 
-System Access:
-!startup: Add to autostart.
-!execute <commands>: Run shell command.
-!cd <directory>: Change directory.
-!process: List running processes.
-!processkill <pid>: Kill a process by PID.
-!shutdown: Shut down the system.
-!restart: Restart the system.
-!download <filename>: Download file.
-!upload: Upload file.
-!listdir: List all files in the current directory.
+# System Access:
+# !startup: Add to autostart.
+# !execute <commands>: Run shell command.
+# !cd <directory>: Change directory.
+# !process: List running processes.
+#!processkill <pid>: Kill a process by PID.
+# !shutdown: Shut down the system.
+# !restart: Restart the system.
+# !download <filename>: Download file.
+# !upload: Upload file.
+# !listdir: List all files in the current directory.
 
-System Information:
-!ip: Get public IP info.
-!sysinfo: Get system info.
+# System Information:
+# !ip: Get public IP info.
+# !sysinfo: Get system info.
 
-Troll Access:
-!open <link>: Open a web browser.
-!bsod: Trigger blue screen.
-!msgbox <title> <text>: Show message box.
-!textspeech <text>: Text to speech.
-!wallpaper <attachment>: Set wallpaper.
-!forkbomb: Rabbit Virus.
-!xfreecrash: Open xfree until browser crashes.
-!volume <command|0-100>: Volume controls.
-!garynarkle: Opens gary narkle article.
+# Troll Access:
+# !open <link>: Open a web browser.
+# !bsod: Trigger blue screen.
+# !msgbox <title> <text>: Show message box.
+# !textspeech <text>: Text to speech.
+# !wallpaper <attachment>: Set wallpaper.
+# !forkbomb: Rabbit Virus.
+# !xfreecrash: Open xfree until browser crashes.
+# !volume <command|0-100>: Volume controls.
+# !garynarkle: Opens gary narkle article.
 
-Device Access:
-!screenshot: Take a screenshot.
-!webcam: Capture webcam image.
+# Device Access:
+# !screenshot: Take a screenshot.
+# !webcam: Capture webcam image.
 
-Credential Dump:
-!password: Dumps saved passwords.
-!grabtokens: Grab Discord tokens.
-!autofill: Dumps saved autofill data.
+# Credential Dump:
+# !password: Dumps saved passwords.
+# !grabtokens: Grab Discord tokens.
+# !autofill: Dumps saved autofill data.
 
 
 *(Refer to the `!help` command output within the running bot for a comprehensive list.)*
