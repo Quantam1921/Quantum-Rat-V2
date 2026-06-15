@@ -49,7 +49,7 @@ Once deployed and running, the Quantum Rat v2 agent connects to the specified Di
 
 ** Commands:**
 
-# R4T V2 Commands:
+# Quantum rat V2 Commands:
 
 # System Access:
 # !startup: Add to autostart.
