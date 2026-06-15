@@ -19,7 +19,7 @@ Quantum Rat v2 is an advanced remote administration tool designed for sophistica
 
 1.  **Clone the Repository or download as zip:**
     ```bash
-    git clone <repository_url>
+    git clone https://github.com/Quantam1921/Quantum-Rat-V2.git
     cd quantum-rat-v2
     ```
 
