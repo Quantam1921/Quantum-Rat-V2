@@ -57,7 +57,7 @@ Once deployed and running, the Quantum Rat v2 agent connects to the specified Di
 # !execute <commands>: Run shell command.
 # !cd <directory>: Change directory.
 # !process: List running processes.
-#!processkill <pid>: Kill a process by PID.
+# !processkill <pid>: Kill a process by PID.
 # !shutdown: Shut down the system.
 # !restart: Restart the system.
 # !download <filename>: Download file.
