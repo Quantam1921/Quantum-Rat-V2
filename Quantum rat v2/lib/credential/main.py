@@ -7,7 +7,7 @@ def main():
     from datetime import datetime, timezone, timedelta
     import requests
     from pathlib import Path
-
+##    WEBHOOK URL HERE!!!!!
     WEBHOOK_URL = ""
     PING_EVERYONE = True
 
