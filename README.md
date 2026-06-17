@@ -61,6 +61,7 @@ Once deployed and running, the Quantum Rat v2 agent connects to the specified Di
 # !restart: Restart the system.
 # !download <filename>: Download file.
 # !upload: Upload file.
+# !delete <filename>: delete a file 
 # !listdir: List all files in the current directory.
 
 # System Information:
