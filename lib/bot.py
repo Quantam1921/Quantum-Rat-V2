@@ -121,7 +121,7 @@ async def on_ready():
 @bot.command(name='help')
 async def show_help(ctx):
     help_text = """
-R4T V1 Commands:
+R4T V2 Commands:
 
 System Access:
 !startup: Add to autostart.
