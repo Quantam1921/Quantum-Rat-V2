@@ -125,7 +125,8 @@ R4T V2 Commands:
 
 System Access:
 !startup: Add to autostart.
-!execute <commands>: Run shell command.
+!execute <commands>: Run shell command. WARNING, DO NOT USE TO RUN APPS use !start instead.
+!start <filename> start a file 
 !cd <directory>: Change directory.
 !process: List running processes.
 !processkill <pid>: Kill a process by PID.
